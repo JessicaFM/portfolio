@@ -1,15 +1,14 @@
 <script>
     export let dataIndex
-    console.log(dataIndex)
     let topPosition = (dataIndex * 100) + '%';
-    console.log(topPosition)
+
 </script>
-<section id="main" style="--top: {topPosition}">
-    Hello
+<section style="--top: { topPosition }">
+    Contact
 </section>
 <style>
-    #main {
+    section {
         top: var(--top);
-
+        background-color: yellow;
     }
 </style>
