@@ -18,41 +18,25 @@
 		return "translate3d(0px, " + translationTop +", 0px)";
 	}
 
-	let scrollable = true;
-	const wheel = (node, options) => {
-		let { scrollable } = options;
-		console.log("scrolling ... ")
-		console.log(node);
-		console.log(options);
-		currentIndex += 1;
-		
-		const handler = e => {
-			if (!scrollable) e.preventDefault();
-		};
-		
-		node.addEventListener('wheel', handler, { passive: false });
-		
-		return {
-			update(options) {
-				scrollable = options.scrollable;
-			},
-			destroy() {
-				node.removeEventListener('wheel', handler, { passive: false });
-			}
-		};
-	};
-	 let y = 100	
+	let y
+	$: console.log("scrolled: ", y);	
+
+
+	const layers = [0, 1, 2, 3, 4];
+
 </script>
 
-<!-- <svelte:window use:wheel={{scrollable}} /> -->
-<svelte:window bind:scrollY={ y } />
+<svelte:window bind:scrollY={y}/>
 
 <main>
 	<div class="wrapper">
 		<div class="content" style="--transform: { translate }">
+			<div class="foreground">
+				You have scrolled {y} pixels
+			</div>
 			<Navbar />
 			<Paginator />
-			<Main dataIndex="0" />
+			<Main dataIndex="0" data-attr="{y}" />
 			<About dataIndex="1" />
 			<Experience dataIndex="2" />
 			<Contact dataIndex="3" />
@@ -78,7 +62,8 @@
 		height: 100% !important;
     	height: 100%;
     	margin: 0 auto;
-    	/* overflow: hidden; */
+    	overflow: hidden;
+		touch-action: none;
 	}
 
 	.content {
