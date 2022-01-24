@@ -35,7 +35,7 @@
 				You have scrolled {y} pixels
 			</div>
 			<Navbar />
-			<Paginator />
+			<Paginator current="0"/>
 			<Main dataIndex="0" data-attr="{y}" />
 			<About dataIndex="1" />
 			<Experience dataIndex="2" />
