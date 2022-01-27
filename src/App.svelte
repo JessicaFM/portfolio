@@ -31,15 +31,16 @@
 <main>
 	<div class="wrapper">
 		<div class="content" style="--transform: { translate }">
-			<div class="foreground">
-				You have scrolled {y} pixels
-			</div>
 			<Navbar />
 			<Paginator current="0"/>
-			<Main dataIndex="0" data-attr="{y}" />
-			<About dataIndex="1" />
-			<Experience dataIndex="2" />
-			<Contact dataIndex="3" />
+			<div class="component">
+				<div class="component-wrapper">
+					<Main dataIndex="0" data-attr="{y}" />
+					<About dataIndex="1" />
+					<Experience dataIndex="2" />
+					<Contact dataIndex="3" />
+				</div>	
+			</div>
 		</div>
 	</div>
 </main>
@@ -62,7 +63,7 @@
 		height: 100% !important;
     	height: 100%;
     	margin: 0 auto;
-    	overflow: hidden;
+    	/* overflow: hidden; */
 		touch-action: none;
 	}
 
@@ -74,6 +75,18 @@
 		position: relative;
 		transform: var(--transform);
 		transition: all 1000ms ease 0s;
+	}
+
+	.component {
+		height: calc(100% -  60px);
+		position: relative;	
+	}
+
+	.component-wrapper {
+		position: absolute;
+		overflow-y: scroll;
+		width: 100%;
+		height: 100%;
 	}
 
 	@media (min-width: 640px) {

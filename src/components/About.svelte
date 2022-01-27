@@ -9,6 +9,6 @@
 <style>
     section {
         top: var(--top);
-        background-color: red;
+        background-color: white;
     }
 </style>
