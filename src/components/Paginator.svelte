@@ -1,12 +1,18 @@
 <script>
-    export let current
-    console.log(current)
+    export let currentIndex = 0
+    let currentColor = '#000000'
+    let currentSecondary = '#ffffff'
+    if (currentIndex == 1 || currentIndex == 3) {
+        currentColor = '#ffffff'
+        currentSecondary = '#000000'
+    }
+    console.log(currentIndex)
 </script>
-<ul class="custom-paginator">
-    <li><a dataIndex="0" href="#0" class="{current === '0' ? 'active' : ''}"></a></li>
-    <li><a dataIndex="1" href="#1" class="{current === '1' ? 'active' : ''}"></a></li>
-    <li><a dataIndex="2" href="#2" class="{current === '2' ? 'active' : ''}"></a></li>
-    <li><a dataIndex="3" href="#3" class="{current === '3' ? 'active' : ''}"></a></li>
+<ul class="custom-paginator" style="--theme-color: { currentColor }; --theme-secundary: { currentSecondary}">
+    <li><a dataIndex="0" href="#0" class="{currentIndex === 0 ? 'active' : ''}"></a></li>
+    <li><a dataIndex="1" href="#1" class="{currentIndex === 1 ? 'active' : ''}"></a></li>
+    <li><a dataIndex="2" href="#2" class="{currentIndex === 2 ? 'active' : ''}"></a></li>
+    <li><a dataIndex="3" href="#3" class="{currentIndex === 3 ? 'active' : ''}"></a></li>
 </ul>
 <style lang="scss">
     .custom-paginator {
@@ -26,10 +32,10 @@
                 width: 2px;
                 height: 2px;
                 display: block;
-                border: 1px solid white;
+                border: 1px solid var(--theme-color);
                 border-radius: 50%;
                 &.active {
-                    background-color: white;
+                    background-color: var(--theme-color);
                 }
             }
         }

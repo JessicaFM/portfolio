@@ -9,33 +9,44 @@
 	import About from './components/About.svelte';
 	import Experience from './components/Experience.svelte';
 	import Contact from './components/Contact.svelte';
+	import {onMount} from "svelte"
 
 	let currentIndex = 0 // default
+	let yTop = 0
+	let h;
 	let translate = translateParams(currentIndex);
+	let componentWrapper
 	
 	function translateParams(index) {
 		let translationTop = (index * 100) + '%';
 		return "translate3d(0px, " + translationTop +", 0px)";
 	}
 
-	let y
-	$: console.log("scrolled: ", y);	
+	function parseScroll() {
+		yTop = componentWrapper.scrollTop
+		if (yTop > h) {
+			currentIndex = Math.floor(yTop / h)
+			console.log("currentIndex: " + currentIndex)
+		} else if(yTop < h) {
+			currentIndex = 0
+		}
+	}
 
-
-	const layers = [0, 1, 2, 3, 4];
+	onMount(() => parseScroll())
 
 </script>
-
-<svelte:window bind:scrollY={y}/>
 
 <main>
 	<div class="wrapper">
 		<div class="content" style="--transform: { translate }">
 			<Navbar />
-			<Paginator current="0"/>
+			<Paginator bind:currentIndex={currentIndex}/>
 			<div class="component">
-				<div class="component-wrapper">
-					<Main dataIndex="0" data-attr="{y}" />
+				<div class="componentWrapper"
+					bind:clientHeight={h}
+					bind:this={componentWrapper}
+					on:scroll={parseScroll}>
+					<Main dataIndex="0" />
 					<About dataIndex="1" />
 					<Experience dataIndex="2" />
 					<Contact dataIndex="3" />
@@ -82,7 +93,7 @@
 		position: relative;	
 	}
 
-	.component-wrapper {
+	.componentWrapper {
 		position: absolute;
 		overflow-y: scroll;
 		width: 100%;
