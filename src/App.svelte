@@ -2,33 +2,36 @@
 	// styles
 	import 'app.css';
 
+	import { onMount } from "svelte"
+
 	// components
 	import Navbar from './components/Navbar.svelte';
 	import Paginator from './components/Paginator.svelte';
-    import Main from './components/Main.svelte';
+	import Main from './components/Main.svelte';
 	import About from './components/About.svelte';
 	import Experience from './components/Experience.svelte';
 	import Contact from './components/Contact.svelte';
-	import {onMount} from "svelte"
 
 	let currentIndex = 0 // default
 	let yTop = 0
-	let h;
-	let translate = translateParams(currentIndex);
+	let h
+	let translate = translateParams(currentIndex)
 	let componentWrapper
+	let maxHeight
 	
 	function translateParams(index) {
-		let translationTop = (index * 100) + '%';
-		return "translate3d(0px, " + translationTop +", 0px)";
+		let translationTop = (index * 100) + '%'
+		return "translate3d(0px, " + translationTop +", 0px)"
 	}
 
 	function parseScroll() {
 		yTop = componentWrapper.scrollTop
-		if (yTop > h) {
-			currentIndex = Math.floor(yTop / h)
-			console.log("currentIndex: " + currentIndex)
-		} else if(yTop < h) {
-			currentIndex = 0
+		maxHeight = ((h - 50) / 2) * (currentIndex + 1) // here we change
+		currentIndex = Math.floor(((yTop + maxHeight) / h))
+
+		if (yTop > maxHeight) {
+			// TODO
+			console.log("changeeee")
 		}
 	}
 

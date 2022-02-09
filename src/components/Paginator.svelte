@@ -1,12 +1,25 @@
 <script>
-    export let currentIndex = 0
-    let currentColor = '#000000'
-    let currentSecondary = '#ffffff'
-    if (currentIndex == 1 || currentIndex == 3) {
-        currentColor = '#ffffff'
-        currentSecondary = '#000000'
-    }
-    console.log(currentIndex)
+    import { afterUpdate } from "svelte";
+
+    export let currentIndex
+    let currentColor;
+    let currentSecondary;
+    updateColors();
+
+    function updateColors() {
+        if (currentIndex == 0 || currentIndex == 2) {
+            currentColor = '#ffffff'
+            currentSecondary = '#000000'
+        } else {
+            currentColor = '#000000'
+            currentSecondary = '#ffffff'
+        }
+    };
+
+    afterUpdate(() => {
+        updateColors();
+    });
+    
 </script>
 <ul class="custom-paginator" style="--theme-color: { currentColor }; --theme-secundary: { currentSecondary}">
     <li><a dataIndex="0" href="#0" class="{currentIndex === 0 ? 'active' : ''}"></a></li>
