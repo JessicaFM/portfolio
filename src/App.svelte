@@ -26,13 +26,8 @@
 
 	function parseScroll() {
 		yTop = componentWrapper.scrollTop
-		maxHeight = ((h - 50) / 2) * (currentIndex + 1) // here we change
+		maxHeight = ((h - 50) / 2) * (currentIndex) // here we change
 		currentIndex = Math.floor(((yTop + maxHeight) / h))
-
-		if (yTop > maxHeight) {
-			// TODO
-			console.log("changeeee")
-		}
 	}
 
 	onMount(() => parseScroll())

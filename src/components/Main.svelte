@@ -12,6 +12,5 @@
 <style>
     #main {
         top: var(--top);
-
     }
 </style>
