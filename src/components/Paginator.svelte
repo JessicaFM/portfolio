@@ -1,5 +1,5 @@
 <script>
-    import { afterUpdate } from "svelte";
+    import { afterUpdate, onMount } from "svelte";
 
     export let currentIndex
     let currentColor;
@@ -14,7 +14,20 @@
             currentColor = '#000000'
             currentSecondary = '#ffffff'
         }
-        console.log("currentIndex", currentIndex)
+    };
+
+    function handleClick(state) {
+        if(state == 'prev') {
+            currentIndex = currentIndex - 1;
+            if(currentIndex < 0) {
+                currentIndex = 4;
+            }
+        } else {
+            currentIndex = currentIndex + 1;
+            if(currentIndex > 4) {
+                currentIndex = 0;
+            }
+        } 
     };
 
     afterUpdate(() => {
@@ -26,10 +39,10 @@
 </script>
 <ul class="custom-paginator" style="--theme-color: { currentColor }; --theme-secundary: { currentSecondary}">
     {#if currentIndex != 0}
-    <li><a class="sc-prev"><img src="{upArrow}"/></a></li>
+    <li><a class="sc-prev" on:click={ () => handleClick('prev') }><img src="{upArrow}"/></a></li>
     {/if}
     {#if currentIndex != 4}
-    <li><a class="sc-next"><img src="{upArrow}"/></a></li>
+    <li><a class="sc-next" on:click={ () => handleClick('next') }><img src="{upArrow}"/></a></li>
     {/if}
 </ul>
 <style lang="scss">

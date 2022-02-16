@@ -12,13 +12,13 @@
 	import Experience from './components/Experience.svelte';
 	import Contact from './components/Contact.svelte';
 
-	let currentIndex = 0 // default
 	let yTop = 0
 	let h
-	let translate = translateParams(currentIndex)
 	let componentWrapper
 	let maxHeight
-	
+
+	$: translate = translateParams(currentIndex)
+
 	function translateParams(index) {
 		let translationTop = (index * 100) + '%'
 		return "translate3d(0px, " + translationTop +", 0px)"
@@ -30,6 +30,13 @@
 		currentIndex = Math.floor(((yTop + maxHeight) / h))
 	}
 
+	function updateIndex(index) {
+		console.log("current index value is: ", index);
+	}
+
+	let index = 0
+	$: currentIndex = updateIndex(index)
+
 	onMount(() => parseScroll())
 
 </script>
@@ -38,7 +45,7 @@
 	<div class="wrapper">
 		<div class="content" style="--transform: { translate }">
 			<Navbar />
-			<Paginator bind:currentIndex={currentIndex}/>
+			<Paginator bind:currentIndex={index}/>
 			<div class="component">
 				<div class="componentWrapper"
 					bind:clientHeight={h}
