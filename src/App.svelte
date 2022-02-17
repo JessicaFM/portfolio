@@ -17,7 +17,10 @@
 	let componentWrapper
 	let maxHeight
 
-	$: translate = translateParams(currentIndex)
+	var index = 0
+	$: currentIndex = updateIndex(index)
+
+	$: translate = translateParams(index)
 
 	function translateParams(index) {
 		let translationTop = (index * 100) + '%'
@@ -26,16 +29,13 @@
 
 	function parseScroll() {
 		yTop = componentWrapper.scrollTop
-		maxHeight = ((h - 50) / 2) * (currentIndex) // here we change
+		maxHeight = ((h - 50) / 2) * (index + 1) // here we change
 		currentIndex = Math.floor(((yTop + maxHeight) / h))
 	}
 
 	function updateIndex(index) {
-		console.log("current index value is: ", index);
+		currentIndex = index
 	}
-
-	let index = 0
-	$: currentIndex = updateIndex(index)
 
 	onMount(() => parseScroll())
 
@@ -45,7 +45,7 @@
 	<div class="wrapper">
 		<div class="content" style="--transform: { translate }">
 			<Navbar />
-			<Paginator bind:currentIndex={index}/>
+			<Paginator bind:currentIndex={currentIndex}/>
 			<div class="component">
 				<div class="componentWrapper"
 					bind:clientHeight={h}

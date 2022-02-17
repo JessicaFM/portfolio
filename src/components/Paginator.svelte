@@ -1,9 +1,12 @@
 <script>
-    import { afterUpdate, onMount } from "svelte";
+    import { afterUpdate } from "svelte";
 
     export let currentIndex
-    let currentColor;
-    let currentSecondary;
+    let currentColor
+    let currentSecondary
+    let upArrow = './assets/images/up-arrow.png';
+    let hiddenUp = true
+    let hiddenDown = false
     updateColors();
 
     function updateColors() {
@@ -14,6 +17,19 @@
             currentColor = '#000000'
             currentSecondary = '#ffffff'
         }
+
+        // Can do It better
+        if(!currentIndex) {
+            hiddenUp = true
+            hiddenDown = false
+        } else if(currentIndex) {
+            hiddenUp = false
+            if(currentIndex == 3) { 
+                hiddenDown = true
+            } else {
+                hiddenDown = false
+            }
+        } 
     };
 
     function handleClick(state) {
@@ -33,18 +49,13 @@
     afterUpdate(() => {
         updateColors();
     });
-
-    let upArrow = './assets/images/up-arrow.png';
-    
 </script>
+
 <ul class="custom-paginator" style="--theme-color: { currentColor }; --theme-secundary: { currentSecondary}">
-    {#if currentIndex != 0}
-    <li><a class="sc-prev" on:click={ () => handleClick('prev') }><img src="{upArrow}"/></a></li>
-    {/if}
-    {#if currentIndex != 4}
-    <li><a class="sc-next" on:click={ () => handleClick('next') }><img src="{upArrow}"/></a></li>
-    {/if}
+    <li><button hidden={ hiddenUp } class="sc-prev" on:click={ () => handleClick('prev') }><img src="{upArrow}"/></button></li>
+    <li><button hidden={ hiddenDown } class="sc-next" on:click={ () => handleClick('next') }><img src="{upArrow}"/></button></li>
 </ul>
+
 <style lang="scss">
     .custom-paginator {
         position: absolute;
@@ -59,8 +70,9 @@
             text-align: center;
             padding: 5px 0;
             margin-bottom: 10px;
-            a {
+            button {
                 height: 40px;
+                border: none;
                 &.sc-next {
                     img {
                         transform: rotate(180deg);
