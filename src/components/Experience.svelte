@@ -3,11 +3,9 @@
     let topPosition = (dataIndex * 100) + '%';
 
 </script>
-<section style="--top: { topPosition }">
+<section id="experience">
     Experience
 </section>
 <style>
-    section {
-        top: var(--top);
-    }
+
 </style>

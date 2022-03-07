@@ -3,12 +3,10 @@
     let topPosition = (dataIndex * 100) + '%';
 </script>
 
-<section id="main" style="--top: {topPosition}">
+<section id="main">
     Hello
 </section>
 
 <style>
-    #main {
-        top: var(--top);
-    }
+
 </style>

@@ -1,5 +1,5 @@
 <script>
-    import { afterUpdate } from "svelte";
+    import { afterUpdate, createEventDispatcher } from "svelte";
 
     export let currentIndex
     let currentColor
@@ -7,6 +7,8 @@
     let upArrow = './assets/images/up-arrow.png';
     let hiddenUp = true
     let hiddenDown = false
+    const dispatch = createEventDispatcher();
+
     updateColors();
 
     function updateColors() {
@@ -33,6 +35,15 @@
     };
 
     function handleClick(state) {
+        console.log("state", state)
+        console.log("currentIndex", currentIndex)
+
+
+        // I need to fix this
+        if(!currentIndex || currentIndex < 0) {
+            currentIndex = 0;
+        }
+
         if(state == 'prev') {
             currentIndex = currentIndex - 1;
             if(currentIndex < 0) {
@@ -44,6 +55,10 @@
                 currentIndex = 0;
             }
         } 
+  
+        console.log("currentIndex", currentIndex)
+
+        dispatch("goTo", { index: currentIndex })
     };
 
     afterUpdate(() => {
@@ -70,6 +85,7 @@
             text-align: center;
             padding: 5px 0;
             margin-bottom: 10px;
+            height: 40px;
             button {
                 height: 40px;
                 border: none;
