@@ -3,9 +3,13 @@
     let topPosition = (dataIndex * 100) + '%';
 
 </script>
-<section id="contact">
-    Contact
-</section>
-<style>
 
+<div id="contact">
+    Contact me!
+</div>
+
+<style>
+    #contact {
+        background-color: brown;
+    }
 </style>

@@ -1,9 +1,8 @@
 <script>
-  let backgroundColor = '#2b2d42';
-  let primaryColor = '#ef233c';
+  let backgroundPrimary, colorPrimaryLight
 </script>
 
-<header style="--background-color: {backgroundColor}; --primary-color: {primaryColor}">
+<header style="--background-color: {backgroundPrimary}; --primary-color: {colorPrimaryLight}">
   <a href="/" rel="home" class="home-link">Jessica F</a>
   <navbar class="navbar offset-right">
     <a href="#about" class="navbar-link">About</a>
@@ -17,7 +16,6 @@
     display: flex;
     justify-content: space-between;
     background: var(--background-color);
-    border-bottom: 4px solid var(--primary-color);
     margin: 0;
     padding: 0.5rem calc(5vw - 0.5rem);
     a {

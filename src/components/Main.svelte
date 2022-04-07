@@ -1,12 +1,23 @@
 <script>
-    export let dataIndex
-    let topPosition = (dataIndex * 100) + '%';
+    export let dataIndex, colorPrimary
+    console.log(colorPrimary);
+//    let topPosition = (dataIndex * 100) + '%';
 </script>
 
-<section id="main">
-    Hello
+<section id="main" style="--text-color: {colorPrimary}">
+    <div class="center-container">
+        <div id="main-box" class="center-box">
+            <div>Front-End</div> 
+            <div>Dev</div>
+        </div>
+    </div>
 </section>
 
-<style>
-
+<style lang="scss">
+    #main {
+        color: var(--text-color);
+        #main-box {
+            font-size: 6rem;
+        }
+    }
 </style>

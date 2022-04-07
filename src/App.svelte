@@ -16,15 +16,17 @@
 	let componentWrapper
 	let maxHeight
 
+	let colorPrimary = '#A2D5AB';
+	let colorPrimaryLight = '#000000';
+	let backgroundPrimary = '#180A0A';
+
 	var index = 0
 	$: currentIndex = updateIndex(index)
 	$: translate = translateParams(index)
 
 	function translateParams(param) {
-		console.log("translateParams", param)
 		if(param > 0) {
 			let translationTop = (param * 100)
-			console.log("translating to: " + translationTop)
 			return "translate(0px, -" + translationTop +"%)"
 		} 
 		return 0;
@@ -38,24 +40,18 @@
 	function parseScroll() {
 		yTop = componentWrapper.scrollTop
 		maxHeight = ((height - 50) / 2) * (index + 1) // here we change
-		console.log("yTop: " + yTop)
-		console.log("maxHeight: " + maxHeight)
-		console.log("h: " + height)
 		currentIndex = Math.floor(((yTop + maxHeight) / height))
-		console.log(screen.height)
-		console.log("currentIndex: " + currentIndex)
 	}
 
 	function updateIndex(index) {
 		currentIndex = index
-		console.log("cc", currentIndex)
 	}
 
 	onMount(() => parseScroll())
 
 </script>
 
-<Header />
+<Header {...{backgroundPrimary: backgroundPrimary, colorPrimaryLight: colorPrimaryLight}}/>
 <main>
 	<div class="wrapper">
 		<div class="content">
@@ -64,10 +60,10 @@
 					bind:clientHeight={height}
 					bind:this={componentWrapper}
 					on:scroll={parseScroll} >
-					<Main dataIndex="0" />
-					<About dataIndex="1" />
-					<Experience dataIndex="2" />
-					<Contact dataIndex="3" />
+					<Main {...{dataIndex: "0", colorPrimary: colorPrimary}} />
+					<About dataIndex="1" colorPrimary=colorPrimary />
+					<Experience dataIndex="2" colorPrimary=colorPrimary />
+					<Contact dataIndex="3" colorPrimary=colorPrimary />
 				</div>	
 			</div>
 		</div>
